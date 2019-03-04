@@ -1,0 +1,58 @@
+version: "3"
+
+volumes:
+#  ft-mysql-data:
+  sp-mongo-data:
+
+services:
+#  ft-api:
+#    container_name: ft-api
+#    image: ft-api
+#    build:
+#      context: .
+#      dockerfile: .docker/golang/api/Dockerfile
+#    volumes:
+#      - .:/go/src/github.com/Sharykhin/fin-tech
+#    env_file:
+#      - ./.docker/golang/api/.env
+#    ports:
+#      - 8003:8003
+#    depends_on:
+#      - ft-mysql
+#      - ft-mongo
+#    links:
+#      - ft-mysql
+#      - ft-mongo
+
+#  ft-mysql:
+#    container_name: ft-mysql
+#    image: ft-mysql
+#    build:
+#      context: .
+#      dockerfile: .docker/mysql/Dockerfile
+#    volumes:
+#      - ./.docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+#      - ft-mysql-data:/var/lib/mysql
+#    ports:
+#      - 3309:3306
+#    env_file:
+#      - ./.docker/mysql/.env
+#    networks:
+#      - fintech-backend
+
+  sp-mongo:
+    container_name: sp-mongo
+    build:
+      context: .
+      dockerfile: .docker/mongo/Dockerfile
+    command: mongod --auth
+    ports:
+      - 27017:27017
+    #env_file:
+    #  - ./.docker/mongo/.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - sp-mongo-data:/data/db
+      - .docker/mongo/entrypoint.js:/docker-entrypoint-initdb.d/entrypoint.js

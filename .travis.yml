@@ -7,7 +7,7 @@ go:
 
 before_install:
   - go get -u gopkg.in/alecthomas/gometalinter.v2
-  - go get ./...
+  - env GO111MODULE=on go get ./...
 
 install:
   - gometalinter.v2 --install

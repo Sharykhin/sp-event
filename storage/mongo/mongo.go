@@ -3,6 +3,7 @@ package mongo
 import (
 	"fmt"
 	"gopkg.in/mgo.v2"
+	"os"
 	"time"
 )
 
@@ -14,9 +15,9 @@ func NewSession() *mgo.Session {
 	info := mgo.DialInfo{
 		Addrs:    []string{hosts},
 		Timeout:  60 * time.Second,
-		Database: "spevent",
-		Username: "spevent",
-		Password: "spevent",
+		Database: os.Getenv("MONGO_DB"),
+		Username: os.Getenv("MONGO_USER"),
+		Password: os.Getenv("MONGO_PASSWORD"),
 	}
 
 	session, err := mgo.DialWithInfo(&info)

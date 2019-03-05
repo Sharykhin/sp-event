@@ -8,6 +8,6 @@ import (
 func main() {
 	fmt.Println("web api")
 
-	_ := mongo.NewSession()
-	fmt.Printf("haha %s")
+	session := mongo.NewSession()
+	fmt.Println(session)
 }

@@ -15,8 +15,8 @@ func NewSession() *mgo.Session {
 		Addrs:    []string{hosts},
 		Timeout:  60 * time.Second,
 		Database: "spevent",
-		Username: "root",
-		Password: "root",
+		Username: "spevent",
+		Password: "spevent",
 	}
 
 	session, err := mgo.DialWithInfo(&info)

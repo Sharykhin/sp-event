@@ -48,11 +48,8 @@ services:
     command: mongod --auth
     ports:
       - 27017:27017
-    #env_file:
-    #  - ./.docker/mongo/.env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+    env_file:
+      - ./.docker/mongo/.env
     volumes:
       - sp-mongo-data:/data/db
-      - .docker/mongo/entrypoint.js:/docker-entrypoint-initdb.d/entrypoint.js
+      - ./.docker/mongo/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh

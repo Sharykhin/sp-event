@@ -6,11 +6,11 @@ go:
   - 1.12
 
 before_install:
-  - go get -u gopkg.in/alecthomas/gometalinter.v2
   - env GO111MODULE=on go get ./...
+  - env GO111MODULE=off go get github.com/alecthomas/gometalinter
 
 install:
-  - env GO111MODULE=on gometalinter.v2 --install
+  - GO111MODULE=off gometalinter --install --force
 
 before_script:
   - echo $TRAVIS
@@ -23,4 +23,5 @@ before_script:
   - echo $TRAVIS_BRANCH
 
 script:
-  - env GO111MODULE=on gometalinter.v2 --deadline=100s --skip=vendor ./...
+  - go vet ./...
+  - GO111MODULE=off gometalinter ./...

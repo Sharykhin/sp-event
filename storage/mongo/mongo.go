@@ -7,13 +7,9 @@ import (
 	"time"
 )
 
-var (
-	hosts = "localhost:27017"
-)
-
 func NewSession() *mgo.Session {
 	info := mgo.DialInfo{
-		Addrs:    []string{hosts},
+		Addrs:    []string{os.Getenv("MONGO_HOSTS")},
 		Timeout:  60 * time.Second,
 		Database: os.Getenv("MONGO_DB"),
 		Username: os.Getenv("MONGO_USER"),

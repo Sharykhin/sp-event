@@ -7,22 +7,17 @@ volumes:
 services:
   sp-api:
     container_name: sp-api
-    image: ft-api
     build:
       context: .
       dockerfile: .docker/golang/api/Dockerfile
     volumes:
-      - .:/go/src/github.com/Sharykhin/fin-tech
+      - .:/sp-event
     env_file:
       - ./.docker/golang/api/.env
-    ports:
-      - 8003:8003
     depends_on:
-      - ft-mysql
-      - ft-mongo
+      - sp-mongo
     links:
-      - ft-mysql
-      - ft-mongo
+      - sp-mongo
 
 #  ft-mysql:
 #    container_name: ft-mysql

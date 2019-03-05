@@ -1,9 +1,5 @@
 FROM golang:1.12
 
-ADD . /go/src/github.com/Sharykhin/sp-event
-
-WORKDIR /go/src/github.com/Sharykhin/sp-event
-
 
 RUN go get github.com/canthefason/go-watcher && \
     go install github.com/canthefason/go-watcher/cmd/watcher && \
@@ -11,6 +7,11 @@ RUN go get github.com/canthefason/go-watcher && \
     gometalinter.v2 --install && \
     go get -u github.com/pressly/goose/cmd/goose
 
-EXPOSE 8003
+ADD . /sp-event
 
-CMD watcher -run github.com/Sharykhin/sp-event/cmd/api -watch github.com/Sharykhin/sp-event
+WORKDIR /sp-event
+
+#CMD exec /bin/sh -c "trap : TERM INT; (while true; do sleep 1000; done) & wait"
+
+# watch uses /go/src as a default directory
+CMD watcher -run ./cmd/api -watch ../../sp-event/

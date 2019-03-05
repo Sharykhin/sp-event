@@ -1,14 +1,26 @@
 sudo: false
-
+os: linux
 language: go
 
 go:
   - 1.12
 
+before_install:
+  - go get -u gopkg.in/alecthomas/gometalinter.v2
+  - go get ./...
+
 install:
-  - go get -u github.com/alecthomas/gometalinter
-  - gometalinter --install
+  - gometalinter.v2 --install
+
+before_script:
+  - echo $TRAVIS
+  - echo $TRAVIS_PULL_REQUEST
+  - echo $TRAVIS_PULL_REQUEST_BRANCH
+  - echo $TRAVIS_COMMIT
+  - echo $TRAVIS_PULL_REQUEST_SHA
+  - echo $TRAVIS_REPO_SLUG
+  - echo $TRAVIS_SECURE_ENV_VARS
+  - echo $TRAVIS_BRANCH
 
 script:
-  - go vet ./...
-  - gometalinter ./...
+  - gometalinter.v2 --deadline=100s --skip=vendor ./...
